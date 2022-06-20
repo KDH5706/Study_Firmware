@@ -22,7 +22,6 @@ int main()
 	DDRA = 0xFF;	// PRORTA를 출력으로 설정
 	DDRD = 0x00;
 	
-	
 	while (1)
 	{
 		for (int i = 0; i<16; i++)
