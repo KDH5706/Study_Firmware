@@ -10,3 +10,10 @@ Atmel Studio 학습 리포지토리
 - INTERRUPT 학습
   - INTERRUPT에 따른 LED 상태 변화
   - INTERRUPT에 따른 LCD 상태 변화 
+
+## 3일차
+- UART 통신 학습
+  - hyper-terminal을 통한 UART 통신
+- 타이머 카운트 학습
+  - OverFlow_INTERRUPT를 활용한 LED 상태 변화
+  - Compare_INTERRUPT를 활용한 FND 상태 변화
