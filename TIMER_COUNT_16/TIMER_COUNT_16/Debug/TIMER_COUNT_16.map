@@ -1,19 +1,35 @@
 Archive member included to satisfy reference by file (symbol)
 
+c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+                              timer_16_fnd2.o (__udivmodhi4)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
                               C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega128a/avr51/crtatmega128a.o (exit)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_copy_data.o)
-                              timer_fnd2.o (__do_copy_data)
+                              timer_16_fnd2.o (__do_copy_data)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_clear_bss.o)
-                              timer_fnd2.o (__do_clear_bss)
+                              timer_16_fnd2.o (__do_clear_bss)
 
 Discarded input sections
 
  .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega128a/avr51/crtatmega128a.o
  .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .text          0x00000000        0x0 timer_fnd2.o
- .data          0x00000000        0x0 timer_fnd2.o
- .bss           0x00000000        0x0 timer_fnd2.o
+ .text          0x00000000        0x0 timer_16_fnd2.o
+ .data          0x00000000        0x0 timer_16_fnd2.o
+ .bss           0x00000000        0x0 timer_16_fnd2.o
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
@@ -79,7 +95,7 @@ Linker script and memory map
 
 Address of section .data set to 0x800100
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega128a/avr51/crtatmega128a.o
-LOAD timer_fnd2.o
+LOAD timer_16_fnd2.o
 START GROUP
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a
 END GROUP
@@ -189,7 +205,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x184
+.text           0x00000000      0x1ca
  *(.vectors)
  .vectors       0x00000000       0x8c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega128a/avr51/crtatmega128a.o
                 0x00000000                __vector_default
@@ -261,15 +277,16 @@ END GROUP
                 0x000000c6                __vector_3
                 0x000000c6                __vector_23
                 0x000000c6                __vector_30
-                0x000000c6                __vector_25
                 0x000000c6                __vector_11
                 0x000000c6                __vector_13
                 0x000000c6                __vector_17
                 0x000000c6                __vector_19
                 0x000000c6                __vector_7
                 0x000000c6                __vector_27
+                0x000000c6                __vector_5
                 0x000000c6                __vector_33
                 0x000000c6                __vector_4
+                0x000000c6                __vector_9
                 0x000000c6                __vector_2
                 0x000000c6                __vector_21
                 0x000000c6                __vector_15
@@ -283,21 +300,21 @@ END GROUP
                 0x000000c6                __vector_20
                 0x000000c8                . = ALIGN (0x2)
  *(.text.*)
- .text.__vector_9
-                0x000000c8       0x52 timer_fnd2.o
-                0x000000c8                __vector_9
- .text.__vector_5
-                0x0000011a       0x2c timer_fnd2.o
-                0x0000011a                __vector_5
- .text.Init     0x00000146       0x28 timer_fnd2.o
-                0x00000146                Init
- .text.main     0x0000016e       0x12 timer_fnd2.o
-                0x0000016e                main
-                0x00000180                . = ALIGN (0x2)
+ .text.Init     0x000000c8       0x28 timer_16_fnd2.o
+                0x000000c8                Init
+ .text.__vector_25
+                0x000000f0       0x7c timer_16_fnd2.o
+                0x000000f0                __vector_25
+ .text.main     0x0000016c       0x32 timer_16_fnd2.o
+                0x0000016c                main
+ .text.libgcc.div
+                0x0000019e       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+                0x0000019e                __udivmodhi4
+                0x000001c6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000180        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x00000180                _exit
-                0x00000180                exit
+ .fini9         0x000001c6        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x000001c6                _exit
+                0x000001c6                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -316,16 +333,16 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000180        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x000001c6        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000184                _etext = .
+                0x000001ca                _etext = .
 
-.data           0x00800100       0x10 load address 0x00000184
+.data           0x00800100       0x10 load address 0x000001ca
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
  .data.FND_DATA_TBL
-                0x00800100       0x10 timer_fnd2.o
+                0x00800100       0x10 timer_16_fnd2.o
                 0x00800100                FND_DATA_TBL
  *(.gnu.linkonce.d*)
  *(.rodata)
@@ -339,18 +356,17 @@ END GROUP
                 0x00800110                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.timer0Cnt
-                0x00800110        0x1 timer_fnd2.o
-                0x00800110                timer0Cnt
- .bss.Time_STOP
-                0x00800111        0x1 timer_fnd2.o
-                0x00800111                Time_STOP
- .bss.time_s    0x00800112        0x1 timer_fnd2.o
+ .bss.edge_flag
+                0x00800110        0x1 timer_16_fnd2.o
+                0x00800110                edge_flag
+ .bss.FND_flag  0x00800111        0x1 timer_16_fnd2.o
+                0x00800111                FND_flag
+ .bss.time_s    0x00800112        0x1 timer_16_fnd2.o
                 0x00800112                time_s
  *(COMMON)
                 0x00800113                PROVIDE (__bss_end, .)
-                0x00000184                __data_load_start = LOADADDR (.data)
-                0x00000194                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000001ca                __data_load_start = LOADADDR (.data)
+                0x000001da                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800113        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -398,7 +414,7 @@ END GROUP
 
 .comment        0x00000000       0x30
  *(.comment)
- .comment       0x00000000       0x30 timer_fnd2.o
+ .comment       0x00000000       0x30 timer_16_fnd2.o
                                  0x31 (size before relaxing)
 
 .note.gnu.avr.deviceinfo
@@ -421,42 +437,42 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0x38
+.debug_aranges  0x00000000       0x30
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x38 timer_fnd2.o
+                0x00000000       0x30 timer_16_fnd2.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x8bb
+.debug_info     0x00000000      0x8c4
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x780 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_info    0x00000780      0x13b timer_fnd2.o
+ .debug_info    0x00000780      0x144 timer_16_fnd2.o
 
-.debug_abbrev   0x00000000      0x7d3
+.debug_abbrev   0x00000000      0x7e4
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x718 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_abbrev  0x00000718       0xbb timer_fnd2.o
+ .debug_abbrev  0x00000718       0xcc timer_16_fnd2.o
 
-.debug_line     0x00000000      0x2e8
+.debug_line     0x00000000      0x2cb
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x16a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_line    0x0000016a      0x17e timer_fnd2.o
+ .debug_line    0x0000016a      0x161 timer_16_fnd2.o
 
-.debug_frame    0x00000000       0x78
+.debug_frame    0x00000000       0x74
  *(.debug_frame)
- .debug_frame   0x00000000       0x78 timer_fnd2.o
+ .debug_frame   0x00000000       0x74 timer_16_fnd2.o
 
-.debug_str      0x00000000      0x3f4
+.debug_str      0x00000000      0x407
  *(.debug_str)
  .debug_str     0x00000000      0x27d C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_str     0x0000027d      0x177 timer_fnd2.o
-                                0x1ab (size before relaxing)
+ .debug_str     0x0000027d      0x18a timer_16_fnd2.o
+                                0x1be (size before relaxing)
 
-.debug_loc      0x00000000       0x85
+.debug_loc      0x00000000       0xa2
  *(.debug_loc)
- .debug_loc     0x00000000       0x85 timer_fnd2.o
+ .debug_loc     0x00000000       0xa2 timer_16_fnd2.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -476,11 +492,11 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0x28
+.debug_ranges   0x00000000       0x20
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x28 timer_fnd2.o
+ .debug_ranges  0x00000000       0x20 timer_16_fnd2.o
 
 .debug_macro
  *(.debug_macro)
-OUTPUT(TIMER_COUNT.elf elf32-avr)
+OUTPUT(TIMER_COUNT_16.elf elf32-avr)
 LOAD linker stubs

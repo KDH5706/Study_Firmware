@@ -24,7 +24,7 @@ unsigned char timer0Cnt = 0;
 ISR(TIMER2_COMP_vect)
 {
 	cli();
-	OCR2 += 72;
+	OCR2 += 72;	//TCNT2 = 0;
 
 	timer0Cnt++;
 	if(timer0Cnt == 50)
@@ -56,6 +56,7 @@ void Init()
 	DDRE = 0x00;
 	
 	TCCR2 = 0x05;
+	TCNT2 = 0;
 	OCR2 = 72;
 	TIMSK = 0x80;
 	TIFR |= 1 << OCF2;
