@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>PWM</AssemblyName>
-    <Name>PWM</Name>
-    <RootNamespace>PWM</RootNamespace>
+    <AssemblyName>Motor</AssemblyName>
+    <Name>Motor</Name>
+    <RootNamespace>Motor</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -122,32 +122,18 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="pwm1.c">
+    <None Include="motor3.c">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="motor1.c">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="motor2.c">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="pwm2.c">
-      <SubType>compile</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="piezo1.c">
-      <SubType>compile</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="piezo2.c">
-      <SubType>compile</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="piezo3.c">
-      <SubType>compile</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="piezo4.c">
+    <Compile Include="motor4.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
