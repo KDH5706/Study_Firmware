@@ -209,9 +209,9 @@ ISR(TIMER1_OVF_vect)
  11e:	ff 93       	push	r31
 	cli();
  120:	f8 94       	cli
-	TCNT1 = 7936; // 65536-28800-28800 = 7936
- 122:	80 e0       	ldi	r24, 0x00	; 0
- 124:	9f e1       	ldi	r25, 0x1F	; 31
+	TCNT1 = 65464; // 65536-72 = 65464	//0.0025초 마다 인터럽트 발생
+ 122:	88 eb       	ldi	r24, 0xB8	; 184
+ 124:	9f ef       	ldi	r25, 0xFF	; 255
  126:	9d bd       	out	0x2d, r25	; 45
  128:	8c bd       	out	0x2c, r24	; 44
 	PORTD = Step[mot_cnt]; // 1-2상 여자 방식 한 스텝 진행
@@ -281,9 +281,9 @@ void Init()
 	TCCR1B = 0x04;	// 분주비 : 256
  190:	84 e0       	ldi	r24, 0x04	; 4
  192:	8e bd       	out	0x2e, r24	; 46
-	TCNT1 = 7936; // 65536-28800-28800 = 7936
- 194:	80 e0       	ldi	r24, 0x00	; 0
- 196:	9f e1       	ldi	r25, 0x1F	; 31
+	TCNT1 = 65464; // 65536-72 = 65464	//0.0025초 마다 인터럽트 발생
+ 194:	88 eb       	ldi	r24, 0xB8	; 184
+ 196:	9f ef       	ldi	r25, 0xFF	; 255
  198:	9d bd       	out	0x2d, r25	; 45
  19a:	8c bd       	out	0x2c, r24	; 44
 	TIMSK = 0x05; // TOIE1, TOIE0 모두 '1'
