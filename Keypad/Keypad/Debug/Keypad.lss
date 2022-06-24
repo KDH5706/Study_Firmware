@@ -3,29 +3,29 @@ Keypad.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000012  00800100  00000164  000001d8  2**0
+  0 .data         00000000  00800100  00800100  000001a4  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000164  00000000  00000000  00000074  2**1
+  1 .text         00000150  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  000001ea  2**0
+  2 .comment      00000030  00000000  00000000  000001a4  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000021c  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001d4  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000030  00000000  00000000  0000025c  2**0
+  4 .debug_aranges 00000030  00000000  00000000  00000214  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000896  00000000  00000000  0000028c  2**0
+  5 .debug_info   00000993  00000000  00000000  00000244  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000007ec  00000000  00000000  00000b22  2**0
+  6 .debug_abbrev 00000838  00000000  00000000  00000bd7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000300  00000000  00000000  0000130e  2**0
+  7 .debug_line   00000391  00000000  00000000  0000140f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000044  00000000  00000000  00001610  2**2
+  8 .debug_frame  00000044  00000000  00000000  000017a0  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000003c1  00000000  00000000  00001654  2**0
+  9 .debug_str    000003f9  00000000  00000000  000017e4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0000003e  00000000  00000000  00001a15  2**0
+ 10 .debug_loc    00000118  00000000  00000000  00001bdd  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000020  00000000  00000000  00001a53  2**0
+ 11 .debug_ranges 00000020  00000000  00000000  00001cf5  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -33,73 +33,73 @@ Disassembly of section .text:
 00000000 <__vectors>:
    0:	45 c0       	rjmp	.+138    	; 0x8c <__ctors_end>
    2:	00 00       	nop
-   4:	58 c0       	rjmp	.+176    	; 0xb6 <__bad_interrupt>
+   4:	4b c0       	rjmp	.+150    	; 0x9c <__bad_interrupt>
    6:	00 00       	nop
-   8:	56 c0       	rjmp	.+172    	; 0xb6 <__bad_interrupt>
+   8:	49 c0       	rjmp	.+146    	; 0x9c <__bad_interrupt>
    a:	00 00       	nop
-   c:	54 c0       	rjmp	.+168    	; 0xb6 <__bad_interrupt>
+   c:	47 c0       	rjmp	.+142    	; 0x9c <__bad_interrupt>
    e:	00 00       	nop
-  10:	52 c0       	rjmp	.+164    	; 0xb6 <__bad_interrupt>
+  10:	45 c0       	rjmp	.+138    	; 0x9c <__bad_interrupt>
   12:	00 00       	nop
-  14:	50 c0       	rjmp	.+160    	; 0xb6 <__bad_interrupt>
+  14:	43 c0       	rjmp	.+134    	; 0x9c <__bad_interrupt>
   16:	00 00       	nop
-  18:	4e c0       	rjmp	.+156    	; 0xb6 <__bad_interrupt>
+  18:	41 c0       	rjmp	.+130    	; 0x9c <__bad_interrupt>
   1a:	00 00       	nop
-  1c:	4c c0       	rjmp	.+152    	; 0xb6 <__bad_interrupt>
+  1c:	3f c0       	rjmp	.+126    	; 0x9c <__bad_interrupt>
   1e:	00 00       	nop
-  20:	4a c0       	rjmp	.+148    	; 0xb6 <__bad_interrupt>
+  20:	3d c0       	rjmp	.+122    	; 0x9c <__bad_interrupt>
   22:	00 00       	nop
-  24:	48 c0       	rjmp	.+144    	; 0xb6 <__bad_interrupt>
+  24:	3b c0       	rjmp	.+118    	; 0x9c <__bad_interrupt>
   26:	00 00       	nop
-  28:	46 c0       	rjmp	.+140    	; 0xb6 <__bad_interrupt>
+  28:	39 c0       	rjmp	.+114    	; 0x9c <__bad_interrupt>
   2a:	00 00       	nop
-  2c:	44 c0       	rjmp	.+136    	; 0xb6 <__bad_interrupt>
+  2c:	37 c0       	rjmp	.+110    	; 0x9c <__bad_interrupt>
   2e:	00 00       	nop
-  30:	42 c0       	rjmp	.+132    	; 0xb6 <__bad_interrupt>
+  30:	35 c0       	rjmp	.+106    	; 0x9c <__bad_interrupt>
   32:	00 00       	nop
-  34:	40 c0       	rjmp	.+128    	; 0xb6 <__bad_interrupt>
+  34:	33 c0       	rjmp	.+102    	; 0x9c <__bad_interrupt>
   36:	00 00       	nop
-  38:	3e c0       	rjmp	.+124    	; 0xb6 <__bad_interrupt>
+  38:	31 c0       	rjmp	.+98     	; 0x9c <__bad_interrupt>
   3a:	00 00       	nop
-  3c:	3c c0       	rjmp	.+120    	; 0xb6 <__bad_interrupt>
+  3c:	2f c0       	rjmp	.+94     	; 0x9c <__bad_interrupt>
   3e:	00 00       	nop
-  40:	3a c0       	rjmp	.+116    	; 0xb6 <__bad_interrupt>
+  40:	2d c0       	rjmp	.+90     	; 0x9c <__bad_interrupt>
   42:	00 00       	nop
-  44:	38 c0       	rjmp	.+112    	; 0xb6 <__bad_interrupt>
+  44:	2b c0       	rjmp	.+86     	; 0x9c <__bad_interrupt>
   46:	00 00       	nop
-  48:	36 c0       	rjmp	.+108    	; 0xb6 <__bad_interrupt>
+  48:	29 c0       	rjmp	.+82     	; 0x9c <__bad_interrupt>
   4a:	00 00       	nop
-  4c:	34 c0       	rjmp	.+104    	; 0xb6 <__bad_interrupt>
+  4c:	27 c0       	rjmp	.+78     	; 0x9c <__bad_interrupt>
   4e:	00 00       	nop
-  50:	32 c0       	rjmp	.+100    	; 0xb6 <__bad_interrupt>
+  50:	25 c0       	rjmp	.+74     	; 0x9c <__bad_interrupt>
   52:	00 00       	nop
-  54:	30 c0       	rjmp	.+96     	; 0xb6 <__bad_interrupt>
+  54:	23 c0       	rjmp	.+70     	; 0x9c <__bad_interrupt>
   56:	00 00       	nop
-  58:	2e c0       	rjmp	.+92     	; 0xb6 <__bad_interrupt>
+  58:	21 c0       	rjmp	.+66     	; 0x9c <__bad_interrupt>
   5a:	00 00       	nop
-  5c:	2c c0       	rjmp	.+88     	; 0xb6 <__bad_interrupt>
+  5c:	1f c0       	rjmp	.+62     	; 0x9c <__bad_interrupt>
   5e:	00 00       	nop
-  60:	2a c0       	rjmp	.+84     	; 0xb6 <__bad_interrupt>
+  60:	1d c0       	rjmp	.+58     	; 0x9c <__bad_interrupt>
   62:	00 00       	nop
-  64:	28 c0       	rjmp	.+80     	; 0xb6 <__bad_interrupt>
+  64:	1b c0       	rjmp	.+54     	; 0x9c <__bad_interrupt>
   66:	00 00       	nop
-  68:	26 c0       	rjmp	.+76     	; 0xb6 <__bad_interrupt>
+  68:	19 c0       	rjmp	.+50     	; 0x9c <__bad_interrupt>
   6a:	00 00       	nop
-  6c:	24 c0       	rjmp	.+72     	; 0xb6 <__bad_interrupt>
+  6c:	17 c0       	rjmp	.+46     	; 0x9c <__bad_interrupt>
   6e:	00 00       	nop
-  70:	22 c0       	rjmp	.+68     	; 0xb6 <__bad_interrupt>
+  70:	15 c0       	rjmp	.+42     	; 0x9c <__bad_interrupt>
   72:	00 00       	nop
-  74:	20 c0       	rjmp	.+64     	; 0xb6 <__bad_interrupt>
+  74:	13 c0       	rjmp	.+38     	; 0x9c <__bad_interrupt>
   76:	00 00       	nop
-  78:	1e c0       	rjmp	.+60     	; 0xb6 <__bad_interrupt>
+  78:	11 c0       	rjmp	.+34     	; 0x9c <__bad_interrupt>
   7a:	00 00       	nop
-  7c:	1c c0       	rjmp	.+56     	; 0xb6 <__bad_interrupt>
+  7c:	0f c0       	rjmp	.+30     	; 0x9c <__bad_interrupt>
   7e:	00 00       	nop
-  80:	1a c0       	rjmp	.+52     	; 0xb6 <__bad_interrupt>
+  80:	0d c0       	rjmp	.+26     	; 0x9c <__bad_interrupt>
   82:	00 00       	nop
-  84:	18 c0       	rjmp	.+48     	; 0xb6 <__bad_interrupt>
+  84:	0b c0       	rjmp	.+22     	; 0x9c <__bad_interrupt>
   86:	00 00       	nop
-  88:	16 c0       	rjmp	.+44     	; 0xb6 <__bad_interrupt>
+  88:	09 c0       	rjmp	.+18     	; 0x9c <__bad_interrupt>
 	...
 
 0000008c <__ctors_end>:
@@ -109,194 +109,185 @@ Disassembly of section .text:
   92:	d0 e1       	ldi	r29, 0x10	; 16
   94:	de bf       	out	0x3e, r29	; 62
   96:	cd bf       	out	0x3d, r28	; 61
+  98:	53 d0       	rcall	.+166    	; 0x140 <main>
+  9a:	58 c0       	rjmp	.+176    	; 0x14c <_exit>
 
-00000098 <__do_copy_data>:
-  98:	11 e0       	ldi	r17, 0x01	; 1
-  9a:	a0 e0       	ldi	r26, 0x00	; 0
-  9c:	b1 e0       	ldi	r27, 0x01	; 1
-  9e:	e4 e6       	ldi	r30, 0x64	; 100
-  a0:	f1 e0       	ldi	r31, 0x01	; 1
-  a2:	00 e0       	ldi	r16, 0x00	; 0
-  a4:	0b bf       	out	0x3b, r16	; 59
-  a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
-  a8:	07 90       	elpm	r0, Z+
-  aa:	0d 92       	st	X+, r0
-  ac:	a2 31       	cpi	r26, 0x12	; 18
-  ae:	b1 07       	cpc	r27, r17
-  b0:	d9 f7       	brne	.-10     	; 0xa8 <__do_copy_data+0x10>
-  b2:	4e d0       	rcall	.+156    	; 0x150 <main>
-  b4:	55 c0       	rjmp	.+170    	; 0x160 <_exit>
+0000009c <__bad_interrupt>:
+  9c:	b1 cf       	rjmp	.-158    	; 0x0 <__vectors>
 
-000000b6 <__bad_interrupt>:
-  b6:	a4 cf       	rjmp	.-184    	; 0x0 <__vectors>
+0000009e <init_keypad>:
+#include <avr/io.h>
+#include <util/delay.h>
 
-000000b8 <Init>:
-	0x00
-};
-
-void Init()
+void init_keypad()
 {
-	DDRA = 0xF8;	//상위 5비트는 출력(Row:가로) 하위 3비트는 입력(Cow:세로)
-  b8:	88 ef       	ldi	r24, 0xF8	; 248
-  ba:	8a bb       	out	0x1a, r24	; 26
-	DDRB = 0xFF;
-  bc:	8f ef       	ldi	r24, 0xFF	; 255
-  be:	87 bb       	out	0x17, r24	; 23
-  c0:	08 95       	ret
+	DDRA = 0xF8; //0b 1111 1000
+  9e:	88 ef       	ldi	r24, 0xF8	; 248
+  a0:	8a bb       	out	0x1a, r24	; 26
+	PORTA = 0x07; //0b 0000 0111
+  a2:	87 e0       	ldi	r24, 0x07	; 7
+  a4:	8b bb       	out	0x1b, r24	; 27
+  a6:	08 95       	ret
 
-000000c2 <keyScan>:
-unsigned int keyScan()
-{
-	int num = 16;
-	
-	//R0
-	PORTA = 0x08;	// 0b 0000 1000
-  c2:	88 e0       	ldi	r24, 0x08	; 8
-  c4:	8b bb       	out	0x1b, r24	; 27
-	if(((PINA >> 0) & 0x01) == 1) return 10;//C0 0b 1111 1110
-  c6:	c8 99       	sbic	0x19, 0	; 25
-  c8:	1f c0       	rjmp	.+62     	; 0x108 <keyScan+0x46>
-	if(((PINA >> 1) & 0x01) == 1) return 2;	//C1 0b 1111 1101
-  ca:	c9 99       	sbic	0x19, 1	; 25
-  cc:	20 c0       	rjmp	.+64     	; 0x10e <keyScan+0x4c>
-	if(((PINA >> 2) & 0x01) == 1) return 3;	//C2 0b 1111 1011
-  ce:	ca 99       	sbic	0x19, 2	; 25
-  d0:	21 c0       	rjmp	.+66     	; 0x114 <keyScan+0x52>
-	
-	//R1
-	PORTA = 0x10;	// 0b 0001 0000
-  d2:	80 e1       	ldi	r24, 0x10	; 16
-  d4:	8b bb       	out	0x1b, r24	; 27
-	if(((PINA >> 0) & 0x01) == 1) return 1;	//C0 0b 1111 1110
-  d6:	c8 99       	sbic	0x19, 0	; 25
-  d8:	20 c0       	rjmp	.+64     	; 0x11a <keyScan+0x58>
-	if(((PINA >> 1) & 0x01) == 1) return 5;	//C1 0b 1111 1101
-  da:	c9 99       	sbic	0x19, 1	; 25
-  dc:	21 c0       	rjmp	.+66     	; 0x120 <keyScan+0x5e>
-	if(((PINA >> 2) & 0x01) == 1) return 6;	//C2 0b 1111 1011
-  de:	ca 99       	sbic	0x19, 2	; 25
-  e0:	22 c0       	rjmp	.+68     	; 0x126 <keyScan+0x64>
-
-	//R2
-	PORTA = 0x20;	// 0b 0010 0000
-  e2:	80 e2       	ldi	r24, 0x20	; 32
-  e4:	8b bb       	out	0x1b, r24	; 27
-	if(((PINA >> 0) & 0x01) == 1) return 4;	//C0 0b 1111 1110
-  e6:	c8 99       	sbic	0x19, 0	; 25
-  e8:	21 c0       	rjmp	.+66     	; 0x12c <keyScan+0x6a>
-	if(((PINA >> 1) & 0x01) == 1) return 8;	//C1 0b 1111 1101
-  ea:	c9 99       	sbic	0x19, 1	; 25
-  ec:	22 c0       	rjmp	.+68     	; 0x132 <keyScan+0x70>
-	if(((PINA >> 2) & 0x01) == 1) return 9;	//C2 0b 1111 1011
-  ee:	ca 99       	sbic	0x19, 2	; 25
-  f0:	23 c0       	rjmp	.+70     	; 0x138 <keyScan+0x76>
-
-	//R3
-	PORTA = 0x40;	// 0b 0100 0000
-  f2:	80 e4       	ldi	r24, 0x40	; 64
-  f4:	8b bb       	out	0x1b, r24	; 27
-	if(((PINA >> 0) & 0x01) == 1) return 7;	//C0 0b 1111 1110
-  f6:	c8 99       	sbic	0x19, 0	; 25
-  f8:	22 c0       	rjmp	.+68     	; 0x13e <keyScan+0x7c>
-	if(((PINA >> 1) & 0x01) == 1) return 11;//C1 0b 1111 1101
-  fa:	c9 99       	sbic	0x19, 1	; 25
-  fc:	23 c0       	rjmp	.+70     	; 0x144 <keyScan+0x82>
-	if(((PINA >> 2) & 0x01) == 1) return 12;//C2 0b 1111 1011
-  fe:	ca 9b       	sbis	0x19, 2	; 25
- 100:	24 c0       	rjmp	.+72     	; 0x14a <keyScan+0x88>
- 102:	8c e0       	ldi	r24, 0x0C	; 12
- 104:	90 e0       	ldi	r25, 0x00	; 0
- 106:	08 95       	ret
-{
-	int num = 16;
-	
-	//R0
-	PORTA = 0x08;	// 0b 0000 1000
-	if(((PINA >> 0) & 0x01) == 1) return 10;//C0 0b 1111 1110
- 108:	8a e0       	ldi	r24, 0x0A	; 10
- 10a:	90 e0       	ldi	r25, 0x00	; 0
- 10c:	08 95       	ret
-	if(((PINA >> 1) & 0x01) == 1) return 2;	//C1 0b 1111 1101
- 10e:	82 e0       	ldi	r24, 0x02	; 2
- 110:	90 e0       	ldi	r25, 0x00	; 0
- 112:	08 95       	ret
-	if(((PINA >> 2) & 0x01) == 1) return 3;	//C2 0b 1111 1011
- 114:	83 e0       	ldi	r24, 0x03	; 3
- 116:	90 e0       	ldi	r25, 0x00	; 0
- 118:	08 95       	ret
-	
-	//R1
-	PORTA = 0x10;	// 0b 0001 0000
-	if(((PINA >> 0) & 0x01) == 1) return 1;	//C0 0b 1111 1110
- 11a:	81 e0       	ldi	r24, 0x01	; 1
- 11c:	90 e0       	ldi	r25, 0x00	; 0
- 11e:	08 95       	ret
-	if(((PINA >> 1) & 0x01) == 1) return 5;	//C1 0b 1111 1101
- 120:	85 e0       	ldi	r24, 0x05	; 5
- 122:	90 e0       	ldi	r25, 0x00	; 0
- 124:	08 95       	ret
-	if(((PINA >> 2) & 0x01) == 1) return 6;	//C2 0b 1111 1011
- 126:	86 e0       	ldi	r24, 0x06	; 6
- 128:	90 e0       	ldi	r25, 0x00	; 0
- 12a:	08 95       	ret
-
-	//R2
-	PORTA = 0x20;	// 0b 0010 0000
-	if(((PINA >> 0) & 0x01) == 1) return 4;	//C0 0b 1111 1110
- 12c:	84 e0       	ldi	r24, 0x04	; 4
- 12e:	90 e0       	ldi	r25, 0x00	; 0
- 130:	08 95       	ret
-	if(((PINA >> 1) & 0x01) == 1) return 8;	//C1 0b 1111 1101
- 132:	88 e0       	ldi	r24, 0x08	; 8
- 134:	90 e0       	ldi	r25, 0x00	; 0
- 136:	08 95       	ret
-	if(((PINA >> 2) & 0x01) == 1) return 9;	//C2 0b 1111 1011
- 138:	89 e0       	ldi	r24, 0x09	; 9
- 13a:	90 e0       	ldi	r25, 0x00	; 0
- 13c:	08 95       	ret
-
-	//R3
-	PORTA = 0x40;	// 0b 0100 0000
-	if(((PINA >> 0) & 0x01) == 1) return 7;	//C0 0b 1111 1110
- 13e:	87 e0       	ldi	r24, 0x07	; 7
- 140:	90 e0       	ldi	r25, 0x00	; 0
- 142:	08 95       	ret
-	if(((PINA >> 1) & 0x01) == 1) return 11;//C1 0b 1111 1101
- 144:	8b e0       	ldi	r24, 0x0B	; 11
- 146:	90 e0       	ldi	r25, 0x00	; 0
- 148:	08 95       	ret
-	if(((PINA >> 2) & 0x01) == 1) return 12;//C2 0b 1111 1011
-	
-	return num;
- 14a:	80 e1       	ldi	r24, 0x10	; 16
- 14c:	90 e0       	ldi	r25, 0x00	; 0
+000000a8 <keyscan>:
 }
- 14e:	08 95       	ret
 
-00000150 <main>:
-
-
-int main(void)
+unsigned char keyscan()
 {
-	Init();
- 150:	b3 df       	rcall	.-154    	; 0xb8 <Init>
-	
-	unsigned int key = 0;
-	
-	while (1)
-	{
-		key = keyScan();
- 152:	b7 df       	rcall	.-146    	; 0xc2 <keyScan>
- 154:	80 50       	subi	r24, 0x00	; 0
-		PORTB = FND_DATA_TBL[key];
- 156:	9f 4f       	sbci	r25, 0xFF	; 255
- 158:	fc 01       	movw	r30, r24
- 15a:	80 81       	ld	r24, Z
- 15c:	88 bb       	out	0x18, r24	; 24
- 15e:	f9 cf       	rjmp	.-14     	; 0x152 <main+0x2>
+	PORTA = 0x08;	//0b 0000 1000
+  a8:	88 e0       	ldi	r24, 0x08	; 8
+  aa:	8b bb       	out	0x1b, r24	; 27
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
 
-00000160 <_exit>:
- 160:	f8 94       	cli
+	__builtin_avr_delay_cycles(__ticks_dc);
+  ac:	83 e3       	ldi	r24, 0x33	; 51
+  ae:	97 e0       	ldi	r25, 0x07	; 7
+  b0:	01 97       	sbiw	r24, 0x01	; 1
+  b2:	f1 f7       	brne	.-4      	; 0xb0 <keyscan+0x8>
+	_delay_ms(1);
+	if(((PINA >> 0) & 0x01) == 1) return 1;
+  b4:	c8 99       	sbic	0x19, 0	; 25
+  b6:	2e c0       	rjmp	.+92     	; 0x114 <keyscan+0x6c>
+	if(((PINA >> 1) & 0x01) == 1) return 2;
+  b8:	c9 99       	sbic	0x19, 1	; 25
+  ba:	2e c0       	rjmp	.+92     	; 0x118 <keyscan+0x70>
+	if(((PINA >> 2) & 0x01) == 1) return 3;
+  bc:	ca 99       	sbic	0x19, 2	; 25
+  be:	2e c0       	rjmp	.+92     	; 0x11c <keyscan+0x74>
+	
+	PORTA = 0x10;	//0b 0001 0000
+  c0:	80 e1       	ldi	r24, 0x10	; 16
+  c2:	8b bb       	out	0x1b, r24	; 27
+  c4:	83 e3       	ldi	r24, 0x33	; 51
+  c6:	97 e0       	ldi	r25, 0x07	; 7
+  c8:	01 97       	sbiw	r24, 0x01	; 1
+  ca:	f1 f7       	brne	.-4      	; 0xc8 <keyscan+0x20>
+	_delay_ms(1);
+	if(((PINA >> 0) & 0x01) == 1) return 4;
+  cc:	c8 99       	sbic	0x19, 0	; 25
+  ce:	28 c0       	rjmp	.+80     	; 0x120 <keyscan+0x78>
+	if(((PINA >> 1) & 0x01) == 1) return 5;
+  d0:	c9 99       	sbic	0x19, 1	; 25
+  d2:	28 c0       	rjmp	.+80     	; 0x124 <keyscan+0x7c>
+	if(((PINA >> 2) & 0x01) == 1) return 6;
+  d4:	ca 99       	sbic	0x19, 2	; 25
+  d6:	28 c0       	rjmp	.+80     	; 0x128 <keyscan+0x80>
+	
+	PORTA = 0x20;	//0b 0010 0000
+  d8:	80 e2       	ldi	r24, 0x20	; 32
+  da:	8b bb       	out	0x1b, r24	; 27
+  dc:	83 e3       	ldi	r24, 0x33	; 51
+  de:	97 e0       	ldi	r25, 0x07	; 7
+  e0:	01 97       	sbiw	r24, 0x01	; 1
+  e2:	f1 f7       	brne	.-4      	; 0xe0 <keyscan+0x38>
+	_delay_ms(1);
+	if(((PINA >> 0) & 0x01) == 1) return 7;
+  e4:	c8 99       	sbic	0x19, 0	; 25
+  e6:	22 c0       	rjmp	.+68     	; 0x12c <keyscan+0x84>
+	if(((PINA >> 1) & 0x01) == 1) return 8;
+  e8:	c9 99       	sbic	0x19, 1	; 25
+  ea:	22 c0       	rjmp	.+68     	; 0x130 <keyscan+0x88>
+	if(((PINA >> 2) & 0x01) == 1) return 9;
+  ec:	ca 99       	sbic	0x19, 2	; 25
+  ee:	22 c0       	rjmp	.+68     	; 0x134 <keyscan+0x8c>
+	
+	PORTA = 0x40;	//0b 0100 0000
+  f0:	80 e4       	ldi	r24, 0x40	; 64
+  f2:	8b bb       	out	0x1b, r24	; 27
+  f4:	83 e3       	ldi	r24, 0x33	; 51
+  f6:	97 e0       	ldi	r25, 0x07	; 7
+  f8:	01 97       	sbiw	r24, 0x01	; 1
+  fa:	f1 f7       	brne	.-4      	; 0xf8 <keyscan+0x50>
+	_delay_ms(1);
+	if(((PINA >> 0) & 0x01) == 1) return 10;
+  fc:	c8 99       	sbic	0x19, 0	; 25
+  fe:	1c c0       	rjmp	.+56     	; 0x138 <keyscan+0x90>
+	if(((PINA >> 1) & 0x01) == 1) return 11;
+ 100:	c9 99       	sbic	0x19, 1	; 25
+ 102:	1c c0       	rjmp	.+56     	; 0x13c <keyscan+0x94>
+	if(((PINA >> 2) & 0x01) == 1) return 12;
+ 104:	99 b3       	in	r25, 0x19	; 25
+ 106:	92 fb       	bst	r25, 2
+ 108:	88 27       	eor	r24, r24
+ 10a:	80 f9       	bld	r24, 0
+ 10c:	92 ff       	sbrs	r25, 2
+ 10e:	17 c0       	rjmp	.+46     	; 0x13e <keyscan+0x96>
+ 110:	8c e0       	ldi	r24, 0x0C	; 12
+ 112:	08 95       	ret
 
-00000162 <__stop_program>:
- 162:	ff cf       	rjmp	.-2      	; 0x162 <__stop_program>
+unsigned char keyscan()
+{
+	PORTA = 0x08;	//0b 0000 1000
+	_delay_ms(1);
+	if(((PINA >> 0) & 0x01) == 1) return 1;
+ 114:	81 e0       	ldi	r24, 0x01	; 1
+ 116:	08 95       	ret
+	if(((PINA >> 1) & 0x01) == 1) return 2;
+ 118:	82 e0       	ldi	r24, 0x02	; 2
+ 11a:	08 95       	ret
+	if(((PINA >> 2) & 0x01) == 1) return 3;
+ 11c:	83 e0       	ldi	r24, 0x03	; 3
+ 11e:	08 95       	ret
+	
+	PORTA = 0x10;	//0b 0001 0000
+	_delay_ms(1);
+	if(((PINA >> 0) & 0x01) == 1) return 4;
+ 120:	84 e0       	ldi	r24, 0x04	; 4
+ 122:	08 95       	ret
+	if(((PINA >> 1) & 0x01) == 1) return 5;
+ 124:	85 e0       	ldi	r24, 0x05	; 5
+ 126:	08 95       	ret
+	if(((PINA >> 2) & 0x01) == 1) return 6;
+ 128:	86 e0       	ldi	r24, 0x06	; 6
+ 12a:	08 95       	ret
+	
+	PORTA = 0x20;	//0b 0010 0000
+	_delay_ms(1);
+	if(((PINA >> 0) & 0x01) == 1) return 7;
+ 12c:	87 e0       	ldi	r24, 0x07	; 7
+ 12e:	08 95       	ret
+	if(((PINA >> 1) & 0x01) == 1) return 8;
+ 130:	88 e0       	ldi	r24, 0x08	; 8
+ 132:	08 95       	ret
+	if(((PINA >> 2) & 0x01) == 1) return 9;
+ 134:	89 e0       	ldi	r24, 0x09	; 9
+ 136:	08 95       	ret
+	
+	PORTA = 0x40;	//0b 0100 0000
+	_delay_ms(1);
+	if(((PINA >> 0) & 0x01) == 1) return 10;
+ 138:	8a e0       	ldi	r24, 0x0A	; 10
+ 13a:	08 95       	ret
+	if(((PINA >> 1) & 0x01) == 1) return 11;
+ 13c:	8b e0       	ldi	r24, 0x0B	; 11
+	if(((PINA >> 2) & 0x01) == 1) return 12;
+	
+	return 0;
+}
+ 13e:	08 95       	ret
+
+00000140 <main>:
+
+int main()
+{
+	DDRC = 0xFF;
+ 140:	8f ef       	ldi	r24, 0xFF	; 255
+ 142:	84 bb       	out	0x14, r24	; 20
+	init_keypad();
+ 144:	ac df       	rcall	.-168    	; 0x9e <init_keypad>
+	
+	while(1){
+		unsigned char key = keyscan();
+ 146:	b0 df       	rcall	.-160    	; 0xa8 <keyscan>
+ 148:	85 bb       	out	0x15, r24	; 21
+		PORTC = key;
+ 14a:	fd cf       	rjmp	.-6      	; 0x146 <main+0x6>
+
+0000014c <_exit>:
+ 14c:	f8 94       	cli
+
+0000014e <__stop_program>:
+ 14e:	ff cf       	rjmp	.-2      	; 0x14e <__stop_program>

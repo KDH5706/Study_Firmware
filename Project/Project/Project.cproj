@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>Keypad</AssemblyName>
-    <Name>Keypad</Name>
-    <RootNamespace>Keypad</RootNamespace>
+    <AssemblyName>Project</AssemblyName>
+    <Name>Project</Name>
+    <RootNamespace>Project</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -122,12 +122,13 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="keypadTest.c">
+    <Compile Include="lcd.c">
       <SubType>compile</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="keypad.c">
+    </Compile>
+    <Compile Include="Lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
