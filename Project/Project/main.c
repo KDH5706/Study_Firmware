@@ -12,9 +12,9 @@
 #include <stdbool.h>
 #include <string.h>
 #include "Lcd.h"
-#define CHANGE_MODE 1
+#define CHANGE_MODE 128
 
-//PW
+//PassWord
 volatile unsigned char PASS_WORD[5] = "2345";
 volatile unsigned char input_pw[5] = "";
 
@@ -25,7 +25,7 @@ unsigned int DoReMi[] = {523, 587, 659, 698, 783, 880, 987, 1046, 1174, 1318};
 unsigned char mot_cnt = 0;
 unsigned char Step[8] = {0x90,0x80,0xC0,0x40,0x60,0x20,0x30,0x10};
 
-//Mode 결정 변수(Mode_flag) 및 Mode 변환 여부 체크 변수(swap)
+//Mode 결정 변수(Mode_flag, true : KeyPad/false : UART) 및 Mode 변환 여부 체크 변수(swap)
 volatile bool Mode_flag = true, swap = false;
 
 void UART_Init()
@@ -113,19 +113,6 @@ unsigned char keyscan()
 	return 0;
 }
 
-void Piezo_Init()
-{
-	DDRB |= (1 << DDB7);		// 포트B PB7을 출력 나머지는 입력포트로 설정한다.
-	
-	TCCR1A |= (1 << WGM11);		// Fast PWM 모드 설정, TOP : ICR1
-	TCCR1B |= (1 << WGM12);		// Fast PWM 모드 설정, TOP : ICR1
-	TCCR1B |= (1 << WGM13);		// Fast PWM	모드 설정, TOP : ICR1
-	TCCR1A |= (1 << COM1C1);	// Clear OCnA/OCnB/OCnC on compare match, set OCnA/OCnB/OCnC at BOTTOM, (non-inverting mode)
-	TCCR1B |= (1 << CS10);		// clkI/O/1 (No prescaling)
-	//TCCR1C = 0x00;
-	TCNT1 = 0;
-}
-
 void StepMotor_Init()
 {
 	DDRC = 0xF0;
@@ -141,76 +128,67 @@ void Mode_Interrupt_Init()
 
 ISR(INT0_vect)
 {
-	Mode_flag = 1 - Mode_flag;
-}
-
-void Init()
-{
-	UART_Init();
-	Keypad_Init();
-	Piezo_Init();
-	StepMotor_Init();
-	Mode_Interrupt_Init();
-	LCD_Init();
+	cli();
+	Mode_flag = !Mode_flag;
+	sei();
 }
 
 void LCD_INFO()
 {
-	Byte Info_str[16] = "";
-	sprintf((char*)Info_str, "Door lock system");
 	Lcd_Pos(0,0);
-	Lcd_STR((unsigned char*) Info_str);
-	sprintf((char*)Info_str, "Insert PW: ");
+	Lcd_STR((unsigned char*)"Door lock system");
 	Lcd_Pos(1,0);
-	Lcd_STR((unsigned char*) Info_str);
+	Lcd_STR((unsigned char*)"Insert PW: ");
+}
+
+void Piezo_Init()
+{
+	DDRB |= (1 << DDB7);		// 포트B PB7(OC1C)을 출력 나머지는 입력포트로 설정
 	
-	//_delay_ms(500);
-	//Lcd_Clear();
+	//TCCR1A = 0x00;						// WGM1(1:0) = "00" WGM(3:0) = "1100" CTC 모드
+	TCCR1B |= (1 << WGM32) | (1 << WGM33);	// WGM1(3:2) = "11" WGM(3:0) = "1100" CTC 모드
+	TCCR1B |= (1 << CS10);					// CS1(2:0) = "001" clkI/O/1 (No prescaling)
+	//TCCR1C = 0x00;
+	TCNT1 = 0;
 }
 
 void Beep_Melody()
 {
 	ICR1 = 7372800 / DoReMi[0];
-	OCR1C = ICR1/50;
+	TCCR1A = (1 << COM1C0);	// Toggle OC1C(PB7) on compare match.
 	_delay_ms(100); // 0.1초 지연
-	OCR1C = 0;
-}
-
-void Melody_Init()
-{
-	ICR1 = 65535;
-	OCR1C = ICR1/50;
-	_delay_ms(100); // 0.1초 지연
-	OCR1C = 0;
+	TCCR1A = 0x00;	// 출력 종료
 }
 
 void Make_Melody(int input)
 {
 	ICR1 = 7372800 / DoReMi[input];
-	OCR1C = ICR1/50;
+	TCCR1A = (1 << COM1C0);	// Toggle OC1C(PB7) on compare match.
 	_delay_ms(100); // 0.1초 지연
-	OCR1C = 0;		//이전 OVF에서 High 되었다가, 그 다음 클럭에서 OCR = 0이므로 바로 compare match가 발생해서 Low가 됨
+	TCCR1A = 0x00;	// 출력 종료
 }
 
 void Success_Melody()
 {
-	for (int i = 0; i < 10 ; i++)
+	for (int i = 3; i < 10 ; i++)
 	{
 		Make_Melody(i);
+		_delay_ms(20);
 	}
 }
 				   
 void Failure_Melody()
 {
-	for (int i = 0; i < 10 ; i++)
+	for (int i = 0; i < 8 ; i++)
 	{
-		if(i%2 == 1) Make_Melody(10);
-		else Make_Melody(5);
+		if(i % 2 == 1) Make_Melody(4);
+		else Make_Melody(7);
 	}
 }
 
 void Open_Door()
 {
+	// 2 * 500 = 1s 동안 스텝모터 작동
 	for (int i = 0 ; i < 500 ; i++)
 	{
 		PORTC = Step[mot_cnt];
@@ -222,8 +200,8 @@ void Open_Door()
 void Save_Input_num(unsigned char temp, int input_pw_cnt)
 {
 	Byte pw_state[16] = "Insert PW: ";
+
 	//입력된 비밀번호 배열에 저장
-	
 	input_pw[input_pw_cnt] = temp;
 	
 	//비밀번호 마스킹 문구 설정
@@ -249,91 +227,130 @@ void Save_Input_num(unsigned char temp, int input_pw_cnt)
 	Lcd_STR((unsigned char*)pw_state);
 }
 
+void Init()
+{
+	UART_Init();
+	Keypad_Init();
+	Piezo_Init();
+	StepMotor_Init();
+	Mode_Interrupt_Init();
+	LCD_Init();
+}
+
+void KeyPad_Mode()
+{
+	int input_pw_cnt = 0;
+	unsigned char temp = 0;
+	// 비밀번호 4자리 입력 받음
+	while (input_pw_cnt < 4)
+	{
+		// 모드전환 체크
+		if(Mode_flag == false)
+		{
+			// input_pw 초기화
+			for(int i = 0; i < 4; i++)
+			input_pw[i] = 0;
+			// swap 활성화
+			swap = true;
+			break;
+		}
+		
+		// 채터링 방지 코드
+		unsigned char pre_temp = 0;
+		unsigned char cur_temp = 0;
+		cur_temp = keyscan();
+		if(cur_temp != 0 && pre_temp == 0)
+		{
+			// temp 정의
+			temp = cur_temp;
+		}
+		pre_temp = cur_temp;
+
+		// 입력값 저장
+		if( temp != 0)
+		{
+			//부저 비프음 출력
+			Beep_Melody();
+			Save_Input_num(temp, input_pw_cnt);
+			temp = 0;
+			input_pw_cnt++;
+		}
+	}
+	_delay_ms(300);
+}
+
+void UART_Mode()
+{
+	int input_pw_cnt = 0;
+	unsigned char temp = 0;
+	
+	unsigned char info_msg[] = "\r\nDoor lock system\r\nInsert PW: ";
+	puts_USART0(info_msg);
+	
+	// 비밀번호 4자리 입력 받음
+	while (input_pw_cnt < 4)
+	{
+		// temp 정의
+		temp = getch();
+		// 모드전환 체크
+		if(Mode_flag == true)
+		{
+			// input_pw 초기화
+			for(int i = 0; i < 4; i++)
+			input_pw[i] = 0;
+			// swap 활성화
+			swap = true;
+			break;
+		}
+		
+		//부저 비프음 출력
+		Beep_Melody();
+		putch_USART0('*');
+		
+		// 입력값 저장
+		if( temp != 0)
+		{
+			Save_Input_num(temp, input_pw_cnt);
+			temp = 0;
+			input_pw_cnt++;
+		}
+	}
+	_delay_ms(300);
+}
+
+void Input_Result()
+{
+	Lcd_Clear();
+	Lcd_Pos(0,0);
+	// 비밀번호가 같은지 판단하여 LCD창에 결과 출력
+	if(strcmp((char*)input_pw, (char*)PASS_WORD) == 0)
+	{
+		Lcd_STR((unsigned char*)"OPEN DOOR");
+		Success_Melody();
+		Open_Door();
+	}
+	else
+	{
+		Lcd_STR((unsigned char*)"Retry!");
+		Failure_Melody();
+	}
+	_delay_ms(800);
+}
+
 int main(void)
 {
 	Init();
-	Melody_Init();
 	
 	while (1)
 	{
 		// LCD 초기 세팅
 		LCD_INFO();
-		
-		int input_pw_cnt = 0;
-		unsigned char temp = 0;
 
+		// 모드 설정
 		if(Mode_flag) // 키패드 모드
-		{
-			// 비밀번호 4자리 입력 받음
-			while (input_pw_cnt < 4)
-			{
-				// 모드전환 체크
-				if(Mode_flag == false)
-				{
-					// input_pw 초기화
-					for(int i = 0; i < 4; i++)
-						input_pw[i] = 0;
-					// swap 활성화
-					swap = true;
-					break;
-				}
-				
-				// 채터링 방지 코드				
-				unsigned char pre_temp = 0;
-				unsigned char cur_temp = 0;
-				cur_temp = keyscan();
-				if(cur_temp != 0 && pre_temp == 0)
-				{
-					// temp 정의
-					temp = cur_temp;
-				}
-				pre_temp = cur_temp;
-
-				// 입력값 저장
-				if( temp != 0)
-				{
-					//부저 비프음 출력
-					Beep_Melody();
-					Save_Input_num(temp, input_pw_cnt);
-					temp = 0;
-					input_pw_cnt++;
-				}
-			}
-		}
+			KeyPad_Mode();
 		else  //UART 모드
-		{
-			unsigned char info_msg[] = "\r\nDoor lock system\r\nInsert PW: ";
-			puts_USART0(info_msg);
-			
-			// 비밀번호 4자리 입력 받음
-			while (input_pw_cnt < 4)
-			{
-				// temp 정의
-				unsigned char temp = getch();
-				// 모드전환 체크
-				if(temp == CHANGE_MODE)
-				{
-					// input_pw 초기화
-					for(int i = 0; i < 4; i++)
-						input_pw[i] = 0;
-					// swap 활성화
-					swap = true;
-					break;
-				}
-				
-				//부저 비프음 출력
-				Beep_Melody();
-				putch_USART0('*');
-				
-				// 입력값 저장
-				if( temp != 0)
-				{
-					Save_Input_num(temp, input_pw_cnt);
-					temp = 0;
-					input_pw_cnt++;
-				}
-			}
-		}
+			UART_Mode();
 		
 		//KeyPad <-> UART 전환해야 하는지 판단
 		if(swap)
@@ -341,28 +358,9 @@ int main(void)
 			swap = false;
 			continue;
 		}
-		
-		_delay_ms(300);
-		input_pw_cnt = 0;
-		
-		// 비밀번호가 같은지 판단하여 LCD창에 결과 출력
-		if(strcmp((char*)input_pw, (char*)PASS_WORD) == 0)
-		{
-			Lcd_Clear();
-			Lcd_Pos(0,0);
-			Lcd_STR((unsigned char*)"OPEN DOOR");
-			Success_Melody();
-			Open_Door();
-			_delay_ms(800);
-		}
-		else
-		{
-			Lcd_Clear();
-			Lcd_Pos(0,0);
-			Lcd_STR((unsigned char*)"Retry!");
-			Failure_Melody();
-			_delay_ms(800);
-		}
+
+		// 입력한 비밀번호를 판단하여 결과 결정
+		Input_Result();
 	}
 }
 
