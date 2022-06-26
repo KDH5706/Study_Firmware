@@ -38,4 +38,8 @@ Atmel Studio 학습 리포지토리
   - 1-2상 여자 방식의 스텝모터 이해
   - OverFlow_INTERRUPT를 활용한 스텝모터 제어
 - Keypad 학습
-  - Keypad 입력 값에 따라 FND 상태 
+  - Keypad 입력 값에 따라 FND 상태
+
+## 6일차 ~
+- mini project
+  - Door lock System 만들기
