@@ -30,7 +30,7 @@ volatile bool Mode_flag = true, swap = false;
 
 void UART_Init()
 {
-	DDRE |= (1 << DDE1);	//TXD0 : 1, TXD0 : 0
+	DDRE |= (1 << DDE1);	//TXD0 : 1(출력), RXD0 : 0(입력)
 	//UCSR0A = 0x00;
 	UCSR0B |= (1 << RXEN0) | (1 << TXEN0);		// Receiver Enable, Transmitter Enable
 	UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00);	// Character Size : 8-bit
@@ -40,9 +40,10 @@ void UART_Init()
 
 void putch_USART0(unsigned char data)
 {
-	while((UCSR0A & 0x20) == 0); // 전송준비가 될때까지 대기
-	UDR0 = data; // 데이터를 UDR0에 쓰면 전송
-	UCSR0A |= 0x20;
+	//UDR0이라는 송신 버퍼가 비어 있으면 UCSR0A에 존재하는 UDRE0 비트 값이 1로 Set 됨
+	while((UCSR0A & (1 << UDRE0)) == 0); // 전송 준비가 될때까지 대기
+	UDR0 = data; // 데이터를 UDR0(송신 버퍼)에 할당하면 전송된다.
+	UCSR0A |= 1 << UDRE0;	//UDRE0 값 1로 초기화(전송이 끝났기 때문에 Initial Value 값으로 Set)
 }
 void puts_USART0(unsigned char *str)
 {
@@ -55,12 +56,14 @@ void puts_USART0(unsigned char *str)
 unsigned char getch()
 {
 	unsigned char data;
-	while ((UCSR0A & 0x80) == 0)
+	//UDR0이라는 수신 버퍼에 수신할 문자가 존재하면 UCSR0A에 존재하는 RXC0 비트 값이 1로 Set 됨
+	while ((UCSR0A & (1 << RXC0)) == 0)
 	{
+		// 인터럽트에 의해 Mode_flag 값이 true가 되면 return
 		if(Mode_flag == true) return CHANGE_MODE;	
 	}
-	data = UDR0;
-	UCSR0A |= 0x80;
+	data = UDR0;	// UDR0(수신 버퍼)의 값을 데이터에 할당한다.
+	UCSR0A |= 1 << RXC0;	//UCSR0A &= ~(1 << RXC0); <- 이 경우는 RXC0 비트를 0(Initial Value)으로 클리어 해준다는 의미
 	return data;
 }
 
@@ -120,9 +123,9 @@ void StepMotor_Init()
 
 void Mode_Interrupt_Init()
 {
-	DDRD = 0x00;
-	EIMSK = (1 << INT0);
-	EICRA = (1 << ISC01) | (1 << ISC00);
+	DDRD = 0x00;		// INT0 핀을 사용하기 위해 D포트를 입력모드로 설정
+	EIMSK = (1 << INT0);// INT0 interrupt enabled
+	EICRA = (1 << ISC01) | (1 << ISC00);	//rising edge
 	sei();
 }
 
@@ -143,7 +146,7 @@ void LCD_INFO()
 
 void Piezo_Init()
 {
-	DDRB |= (1 << DDB7);		// 포트B PB7(OC1C)을 출력 나머지는 입력포트로 설정
+	DDRB |= (1 << DDB7);					// 포트B PB7(OC1C)을 출력 나머지는 입력포트로 설정
 	
 	//TCCR1A = 0x00;						// WGM1(1:0) = "00" WGM(3:0) = "1100" CTC 모드
 	TCCR1B |= (1 << WGM32) | (1 << WGM33);	// WGM1(3:2) = "11" WGM(3:0) = "1100" CTC 모드
@@ -155,7 +158,8 @@ void Piezo_Init()
 void Beep_Melody()
 {
 	ICR1 = 7372800 / DoReMi[0];
-	TCCR1A = (1 << COM1C0);	// Toggle OC1C(PB7) on compare match.
+	//TCCR1A : Timer/Counter1 Control Register A
+	TCCR1A = (1 << COM1C0);	// Toggle OC1C(PB7) on compare match.(단, non-PWM 모드일 경우)
 	_delay_ms(100); // 0.1초 지연
 	TCCR1A = 0x00;	// 출력 종료
 }
@@ -163,7 +167,7 @@ void Beep_Melody()
 void Make_Melody(int input)
 {
 	ICR1 = 7372800 / DoReMi[input];
-	TCCR1A = (1 << COM1C0);	// Toggle OC1C(PB7) on compare match.
+	TCCR1A = (1 << COM1C0);	// Toggle OC1C(PB7) on compare match.(단, non-PWM 모드일 경우)
 	_delay_ms(100); // 0.1초 지연
 	TCCR1A = 0x00;	// 출력 종료
 }
