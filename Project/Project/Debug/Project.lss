@@ -305,12 +305,12 @@ void Lcd_Init(void)
  1ba:	08 95       	ret
 
 000001bc <UART_Init>:
-//Mode 결정 변수(Mode_flag) 및 Mode 변환 여부 체크 변수(swap)
+//Mode 결정 변수(Mode_flag, true : KeyPad/false : UART) 및 Mode 변환 여부 체크 변수(swap)
 volatile bool Mode_flag = true, swap = false;
 
 void UART_Init()
 {
-	DDRE |= (1 << DDE1);	//TXD0 : 1, TXD0 : 0
+	DDRE |= (1 << DDE1);	//TXD0 : 1(출력), RXD0 : 0(입력)
  1bc:	82 b1       	in	r24, 0x02	; 2
  1be:	82 60       	ori	r24, 0x02	; 2
  1c0:	82 b9       	out	0x02, r24	; 2
@@ -336,12 +336,13 @@ void UART_Init()
 
 void putch_USART0(unsigned char data)
 {
-	while((UCSR0A & 0x20) == 0); // 전송준비가 될때까지 대기
+	//UDR0이라는 송신 버퍼가 비어 있으면 UCSR0A에 존재하는 UDRE0 비트 값이 1로 Set 됨
+	while((UCSR0A & (1 << UDRE0)) == 0); // 전송 준비가 될때까지 대기
  1d8:	5d 9b       	sbis	0x0b, 5	; 11
  1da:	fe cf       	rjmp	.-4      	; 0x1d8 <putch_USART0>
-	UDR0 = data; // 데이터를 UDR0에 쓰면 전송
+	UDR0 = data; // 데이터를 UDR0(송신 버퍼)에 할당하면 전송된다.
  1dc:	8c b9       	out	0x0c, r24	; 12
-	UCSR0A |= 0x20;
+	UCSR0A |= 1 << UDRE0;	//UDRE0 값 1로 초기화(전송이 끝났기 때문에 Initial Value 값으로 Set)
  1de:	8b b1       	in	r24, 0x0b	; 11
  1e0:	80 62       	ori	r24, 0x20	; 32
  1e2:	8b b9       	out	0x0b, r24	; 11
@@ -361,8 +362,8 @@ void puts_USART0(unsigned char *str)
  1ee:	f4 df       	rcall	.-24     	; 0x1d8 <putch_USART0>
 		str++;
  1f0:	21 96       	adiw	r28, 0x01	; 1
-	UDR0 = data; // 데이터를 UDR0에 쓰면 전송
-	UCSR0A |= 0x20;
+	UDR0 = data; // 데이터를 UDR0(송신 버퍼)에 할당하면 전송된다.
+	UCSR0A |= 1 << UDRE0;	//UDRE0 값 1로 초기화(전송이 끝났기 때문에 Initial Value 값으로 Set)
 }
 void puts_USART0(unsigned char *str)
 {
@@ -383,42 +384,45 @@ void puts_USART0(unsigned char *str)
 unsigned char getch()
 {
 	unsigned char data;
-	while ((UCSR0A & 0x80) == 0)
+	//UDR0이라는 수신 버퍼에 수신할 문자가 존재하면 UCSR0A에 존재하는 RXC0 비트 값이 1로 Set 됨
+	while ((UCSR0A & (1 << RXC0)) == 0)
  1fe:	04 c0       	rjmp	.+8      	; 0x208 <getch+0xa>
 	{
-		if(Mode_flag == true) return CHANGE_MODE;	
+		// 인터럽트에 의해 Mode_flag 값이 true가 되면 CHANGE_MODE를 return
+		if(Mode_flag == true) return CHANGE_MODE;
  200:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
  204:	81 11       	cpse	r24, r1
  206:	07 c0       	rjmp	.+14     	; 0x216 <getch+0x18>
-	}
 }
 unsigned char getch()
 {
 	unsigned char data;
-	while ((UCSR0A & 0x80) == 0)
+	//UDR0이라는 수신 버퍼에 수신할 문자가 존재하면 UCSR0A에 존재하는 RXC0 비트 값이 1로 Set 됨
+	while ((UCSR0A & (1 << RXC0)) == 0)
  208:	5f 9b       	sbis	0x0b, 7	; 11
  20a:	fa cf       	rjmp	.-12     	; 0x200 <getch+0x2>
 	{
-		if(Mode_flag == true) return CHANGE_MODE;	
+		// 인터럽트에 의해 Mode_flag 값이 true가 되면 CHANGE_MODE를 return
+		if(Mode_flag == true) return CHANGE_MODE;
 	}
-	data = UDR0;
+	data = UDR0;	// UDR0(수신 버퍼)의 값을 데이터에 할당한다.
  20c:	8c b1       	in	r24, 0x0c	; 12
-	UCSR0A |= 0x80;
+	UCSR0A |= 1 << RXC0;	//UCSR0A &= ~(1 << RXC0); <- 이 경우는 RXC0 비트를 0(Initial Value)으로 클리어 해준다는 의미
  20e:	9b b1       	in	r25, 0x0b	; 11
  210:	90 68       	ori	r25, 0x80	; 128
  212:	9b b9       	out	0x0b, r25	; 11
 	return data;
  214:	08 95       	ret
-unsigned char getch()
-{
 	unsigned char data;
-	while ((UCSR0A & 0x80) == 0)
+	//UDR0이라는 수신 버퍼에 수신할 문자가 존재하면 UCSR0A에 존재하는 RXC0 비트 값이 1로 Set 됨
+	while ((UCSR0A & (1 << RXC0)) == 0)
 	{
-		if(Mode_flag == true) return CHANGE_MODE;	
- 216:	80 e8       	ldi	r24, 0x80	; 128
+		// 인터럽트에 의해 Mode_flag 값이 true가 되면 CHANGE_MODE를 return
+		if(Mode_flag == true) return CHANGE_MODE;
+ 216:	8f ef       	ldi	r24, 0xFF	; 255
 	}
-	data = UDR0;
-	UCSR0A |= 0x80;
+	data = UDR0;	// UDR0(수신 버퍼)의 값을 데이터에 할당한다.
+	UCSR0A |= 1 << RXC0;	//UCSR0A &= ~(1 << RXC0); <- 이 경우는 RXC0 비트를 0(Initial Value)으로 클리어 해준다는 의미
 	return data;
 }
  218:	08 95       	ret
@@ -455,9 +459,9 @@ void LCD_Init()
 
 void Keypad_Init()
 {
-	DDRF = 0xF8; //0b 1111 1000
+	DDRF = 0xF8;	//0b 1111 1000
  23c:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <__TEXT_REGION_LENGTH__+0x7e0061>
-	PORTF = 0x07; //0b 0000 0111
+	PORTF = 0x07;	//0b 0000 0111
  240:	87 e0       	ldi	r24, 0x07	; 7
  242:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <__TEXT_REGION_LENGTH__+0x7e0062>
  246:	08 95       	ret
@@ -645,12 +649,12 @@ void StepMotor_Init()
 
 void Mode_Interrupt_Init()
 {
-	DDRD = 0x00;
+	DDRD = 0x00;		// INT0 핀을 사용하기 위해 D포트를 입력모드로 설정
  320:	11 ba       	out	0x11, r1	; 17
-	EIMSK = (1 << INT0);
+	EIMSK = (1 << INT0);// INT0 interrupt enabled
  322:	81 e0       	ldi	r24, 0x01	; 1
  324:	89 bf       	out	0x39, r24	; 57
-	EICRA = (1 << ISC01) | (1 << ISC00);
+	EICRA = (1 << ISC01) | (1 << ISC00);	//rising edge
  326:	83 e0       	ldi	r24, 0x03	; 3
  328:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <__TEXT_REGION_LENGTH__+0x7e006a>
 	sei();
@@ -715,7 +719,7 @@ void LCD_INFO()
 
 void Piezo_Init()
 {
-	DDRB |= (1 << DDB7);		// 포트B PB7(OC1C)을 출력 나머지는 입력포트로 설정
+	DDRB |= (1 << DDB7);					// 포트B PB7(OC1C)을 출력 나머지는 입력포트로 설정
  378:	80 68       	ori	r24, 0x80	; 128
  37a:	87 bb       	out	0x17, r24	; 23
 	
@@ -751,7 +755,8 @@ void Beep_Melody()
  3a2:	a8 d1       	rcall	.+848    	; 0x6f4 <__divmodsi4>
  3a4:	37 bd       	out	0x27, r19	; 39
  3a6:	26 bd       	out	0x26, r18	; 38
-	TCCR1A = (1 << COM1C0);	// Toggle OC1C(PB7) on compare match.
+	//TCCR1A : Timer/Counter1 Control Register A
+	TCCR1A = (1 << COM1C0);	// Toggle OC1C(PB7) on compare match.(단, non-PWM 모드일 경우)
  3a8:	84 e0       	ldi	r24, 0x04	; 4
  3aa:	8f bd       	out	0x2f, r24	; 47
  3ac:	2f ef       	ldi	r18, 0xFF	; 255
@@ -790,7 +795,7 @@ void Make_Melody(int input)
  3dc:	8b d1       	rcall	.+790    	; 0x6f4 <__divmodsi4>
  3de:	37 bd       	out	0x27, r19	; 39
  3e0:	26 bd       	out	0x26, r18	; 38
-	TCCR1A = (1 << COM1C0);	// Toggle OC1C(PB7) on compare match.
+	TCCR1A = (1 << COM1C0);	// Toggle OC1C(PB7) on compare match.(단, non-PWM 모드일 경우)
  3e2:	84 e0       	ldi	r24, 0x04	; 4
  3e4:	8f bd       	out	0x2f, r24	; 47
  3e6:	2f ef       	ldi	r18, 0xFF	; 255

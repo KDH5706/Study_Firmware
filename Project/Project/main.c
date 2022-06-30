@@ -4,7 +4,7 @@
 * Created: 2022-06-24 오전 9:44:43
 * Author : PKNU
 */
-#define F_CPU 7372800UL
+#define F_CPU 7372800UL		//CPU 속도 : 7372800Hz = 7.3728MHz
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "Lcd.h"
-#define CHANGE_MODE 128
+#define CHANGE_MODE -1		//UART 모드에서 Keypad 모드로 전환하기 위해 필요한 상수
 
 //PassWord
 volatile unsigned char PASS_WORD[5] = "2345";
@@ -59,8 +59,8 @@ unsigned char getch()
 	//UDR0이라는 수신 버퍼에 수신할 문자가 존재하면 UCSR0A에 존재하는 RXC0 비트 값이 1로 Set 됨
 	while ((UCSR0A & (1 << RXC0)) == 0)
 	{
-		// 인터럽트에 의해 Mode_flag 값이 true가 되면 return
-		if(Mode_flag == true) return CHANGE_MODE;	
+		// 인터럽트에 의해 Mode_flag 값이 true가 되면 CHANGE_MODE를 return
+		if(Mode_flag == true) return CHANGE_MODE;
 	}
 	data = UDR0;	// UDR0(수신 버퍼)의 값을 데이터에 할당한다.
 	UCSR0A |= 1 << RXC0;	//UCSR0A &= ~(1 << RXC0); <- 이 경우는 RXC0 비트를 0(Initial Value)으로 클리어 해준다는 의미
@@ -79,8 +79,8 @@ void LCD_Init()
 
 void Keypad_Init()
 {
-	DDRF = 0xF8; //0b 1111 1000
-	PORTF = 0x07; //0b 0000 0111
+	DDRF = 0xF8;	//0b 1111 1000
+	PORTF = 0x07;	//0b 0000 0111
 }
 
 unsigned char keyscan()
