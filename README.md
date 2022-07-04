@@ -27,7 +27,7 @@ Atmel Studio 학습 리포지토리
   - PC PWM을 활용한 LED 밝기 조절
   - PC PWM 및 OverFlow_INTERRUPT을 활용한 LED 밝기 상태 조절
   
-  ## 5일차
+## 5일차
 - PWM(Pulse Width Modulation) 학습
   - Fast PWM을 활용한 PIEZO 소자 제어
   - OverFlow_INTERRUPT을 활용한 PIEZO 소자 제어
